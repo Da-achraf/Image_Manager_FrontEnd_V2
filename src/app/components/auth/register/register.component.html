@@ -1,0 +1,26 @@
+<p *ngIf="successMsg" class="p-[1rem] bg-green-400 text-gray-800 font-semibold rounded">{{ successMsg }}</p>
+<p *ngIf="errorMsg" class="p-[1rem] bg-red-400 text-white font-semibold rounded">{{ errorMsg }}</p>
+<!--<p *ngIf="error$ | async as error" class="p-[1rem] bg-red-400 text-white font-semibold rounded">{{ error.message }}</p>-->
+<!--<p *ngIf="success$ | async as success" class="p-[1rem] bg-green-400 text-gray-600 font-semibold rounded">{{ success.message }}</p>-->
+<div class="animate-fadeIn flex flex-col max-w-sm px-[1rem] py-[2rem] shadow-2xl rounded">
+  <h2 class="font-bold text-lg mb-[.1rem]">Create an account</h2>
+  <p class="text-sm text-gray-700 mb-[2rem]">to continue to Image Manager</p>
+  <form class="mb-[1rem]" [formGroup]="fg" #form="ngForm" (ngSubmit)="register(form.value)">
+    <div class="flex gap-3 mb-[1rem]">
+        <label for="fname" class="text-sm flex-1">
+          <span class="font-semibold">First name</span>
+          <input id="fname" class="input p-[.5rem]" type="text" name="fname" formControlName="fname">
+        </label>
+        <label for="lname" class="text-sm flex-1">
+          <span class="font-semibold">Last name</span>
+          <input id="lname" class="input p-[.5rem]" type="text" name="lname" formControlName="lname">
+        </label>
+    </div>
+    <label for="email" class="text-sm font-semibold">Email</label>
+    <input id="email" class="input py-[.5rem] px-[1rem] mb-[.5rem]" type="email" name="email" formControlName="email">
+    <label for="password" class="text-sm font-semibold">Password</label>
+    <input id="password" class="input py-[.5rem] px-[1rem] mb-[.5rem]" type="password" name="password" formControlName="password">
+    <button [ngClass]="{ 'hover:cursor-not-allowed' : !form.valid}" [disabled]="!form.valid" class="input py-[.5rem] bg-main text-white border border-main hover:cursor-pointer hover:bg-white hover:text-black hover:border-main" type="submit">Sign Up</button>
+  </form>
+  <span class="text-center text-sm">Have account? <a [routerLink]="'/login'" class="font-semibold text-main text-base hover:cursor-pointer hover:underline">Sign in</a></span>
+</div>

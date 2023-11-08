@@ -1,1 +1,56 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --success : #057A55;
+  --error: #E02424;
+  --text-light: #eee
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+/* Shared Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+.input {
+  @apply w-full border border-gray-300 rounded outline-8 outline-main;
+}
+
+.button {
+  @apply px-[.8rem] py-[.5rem] font-semibold rounded-lg hover:cursor-pointer
+}
+
+html, body {
+  @apply h-full
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.success-snackbar {
+  @apply bg-[var(--success)] text-light
+}
+.error-snackbar{
+  @apply bg-[var(--error)] text-light
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: var(--success);
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.error-snackbar {
+    --mdc-snackbar-container-color: var(--error);
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}

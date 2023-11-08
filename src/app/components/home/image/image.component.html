@@ -1,0 +1,76 @@
+<div class="flex flex-col min-h-[38rem] sm:flex-row">
+  <div class="bg-gray-100 px-[1rem] py-[1.5rem] sm:w-2/5">
+    <p class="font-semibold text-lg text-secondary mb-[3rem]">Overview</p>
+    <div class="flex flex-col gap-5 mb-[1rem]">
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Name</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.name }}</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Public ID</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.publicId }}</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Resource Type</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.mimeType }}</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Size</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.size | size }}</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Width</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.width }} px</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Height</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.height }} px</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+      <div>
+        <div class="flex mb-[.7rem]">
+          <p class="w-2/5 text-gray-500 text-sm">Created At</p>
+          <p class="w-3/5 font-medium text-sm">{{ image.createdAt | date }}</p>
+        </div>
+        <mat-divider></mat-divider>
+      </div>
+    </div>
+    <div class="flex flex-col gap-4">
+      <button (click)="showHistogram(image.url)" class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Histogram</button>
+      <button (click)="showMoment(image.url)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Moments</button>
+      <button
+        mat-button
+        [matMenuTriggerFor]="menu"
+        class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Dominant Colors
+      </button>
+    </div>
+
+
+    <mat-menu #menu="matMenu">
+      <button (click)="showDominantColors(image.url, option)" *ngFor="let option of options" mat-menu-item>
+        {{option}}
+      </button>
+    </mat-menu>
+
+  </div>
+  <div class="grid place-content-center squares sm:w-3/5">
+    <img class="rounded max-w-md" [src]="image.url" alt="image">
+  </div>
+</div>

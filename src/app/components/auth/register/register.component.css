@@ -1,0 +1,13 @@
+:host{
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+.ng-invalid:not(form) {
+  @apply border-l-[4px] border-l-red-400;
+}
+
+.ng-valid:not(form) {
+  @apply border-l-[4px] border-l-green-400;
+}

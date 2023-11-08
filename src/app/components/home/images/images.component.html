@@ -1,0 +1,78 @@
+
+<ng-container
+  *ngIf="
+  {
+    selectedImagesIds: selectedImagesIds$ | async,
+    images: images$ | async
+  } as all"
+>
+  <ng-container *ngIf="all.images?.length != 0">
+    <div class="flex justify-between mb-[1rem] gap-2">
+      <!-- Select All CheckBox -->
+      <mat-checkbox
+        class="justify-self-start text-sm font-semibold"
+        [checked]="all.images?.length != 0 && (all.images?.length === all.selectedImagesIds?.length)"
+        [color]="'primary'"
+        (change)= "
+                    $event.checked
+                    ? imageState.selectAllImages()
+                    : imageState.unSelectAllImages()
+                  "
+        name="themeCheckBox"
+      >
+        Select All
+      </mat-checkbox>
+      <button
+        class="button bg-strongRed text-white hover:bg-lightRed"
+        [hidden]="all.selectedImagesIds?.length === 0"
+        (click)="openDeleteImageDialog()"
+      >
+        Delete
+        <fa-icon class="ml-1" [icon]="faTrash"></fa-icon>
+      </button>
+      <button
+        class="px-[1rem] py-[.5rem] bg-main font-semibold text-gray-100 rounded-lg hover:cursor-pointer hover:bg-blue-700"
+        (click)="openUploadImageDialog()"
+        [hidden]="all.selectedImagesIds?.length != 0"
+      >
+        Upload
+        <fa-icon class="ml-1" [icon]="faCloud"></fa-icon>
+      </button>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <div
+        *ngFor="let image of all.images"
+        class="relative bg-transparent text-lg text-gray-600 font-bold px-[2rem] py-[3rem] rounded-xl shadow-2xl box-border hover:cursor-pointer"
+      >
+<!--        <img class="max-w-[300px] max-h-[300px] w-auto h-auto"  [ngSrc]="image.url" alt="" fill="" [priority]="true">-->
+        <img
+          class="max-w-[250px] max-h-[250px] w-auto h-auto" alt="image"
+          (click)="themeState.emitChoosenTheme(themeId); navigateToChoosenImage(image)"
+          [src]="image.url"
+        >
+        <div class="absolute top-[.1rem] right-[.1rem]">
+          <mat-checkbox
+            [checked]="all.selectedImagesIds | isChecked : image.id"
+            [value]="image.id"
+            [color]="'primary'"
+            (change)= "
+                        $event.checked
+                        ? imageState.emitSelectedImage(image.id)
+                        : imageState.emitUnSelectedImage(image.id)
+                      "
+            name="imageCheckBox">
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="all.images?.length == 0">
+    <div class="animate-fadeIn max-w-lg mx-auto shadow-2xl rounded">
+      <image-uploader (onUpload)="uploadImages($event)"></image-uploader>
+    </div>
+  </ng-container>
+</ng-container>
+

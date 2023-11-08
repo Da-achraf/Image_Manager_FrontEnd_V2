@@ -1,0 +1,59 @@
+<ng-container
+  *ngIf="
+  {
+    selectedThemesIds: selectedThemesIds$ | async,
+    themes: themes$ | async
+  } as all"
+>
+  <div class="flex justify-between mb-[1rem] gap-2">
+
+    <mat-checkbox
+        class="justify-self-start text-sm font-semibold"
+        [checked]="all.themes?.length != 0 && (all.themes?.length === all.selectedThemesIds?.length)"
+        [color]="'primary'"
+        (change)="onSelectAllChange($event)"
+        name="themeCheckBox"
+      >
+        Select All
+    </mat-checkbox>
+    <button
+      class="button bg-strongRed text-white hover:bg-lightRed"
+      [hidden]="all.selectedThemesIds?.length === 0"
+      (click)="openDeleteDialog()"
+    >
+      Delete
+      <fa-icon class="ml-1" [icon]="faTrash"></fa-icon>
+    </button>
+    <button
+      class="button bg-secondary text-white hover:bg-blue-700"
+      [hidden]="all.selectedThemesIds?.length != 0"
+      (click)="openCreateDialog()"
+    >
+      Create
+      <fa-icon class="ml-1" [icon]="faPlus"></fa-icon>
+    </button>
+  </div>
+
+  <div class="flex flex-wrap gap-4">
+    <div
+      *ngFor="let theme of all.themes"
+      class="relative bg-transparent max-w-sm text-lg text-gray-600 font-bold px-[2rem] py-[3rem] rounded-xl shadow-2xl box-border hover:cursor-pointer"
+    >
+      <a
+        class="px-[.5rem] py-[.2rem] rounded bg-blue-400 text-gray-50 hover:bg-main"
+        [routerLink]="['/app/themes/', theme.id]"
+      >
+        {{ theme.label }}
+      </a>
+      <div class="absolute top-[.1rem] right-[.1rem]">
+        <mat-checkbox
+          [checked]="all.selectedThemesIds | isChecked : theme.id"
+          [value]="theme.id"
+          [color]="'primary'"
+          (change)="$event.checked ? onThemeChecked(theme.id) : onThemeUnChecked(theme.id)"
+          name="themeCheckBox">
+        </mat-checkbox>
+      </div>
+    </div>
+  </div>
+</ng-container>
