@@ -1,10 +1,8 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {MomentService} from "../../services/moment.service";
 import {DominantColorsService} from "../../services/dominant-colors.service";
-import {finalize, of, Subject, takeUntil} from "rxjs";
-import {UNKNOWN_ERROR} from "../../constants/error.constant";
+import {Subject} from "rxjs";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @Component({
   selector: 'app-histogram',
@@ -14,7 +12,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
       <mat-spinner *ngIf="loading" [color]="'primary'" diameter="40"></mat-spinner>
       <ng-container *ngIf="!loading">
         <div *ngIf="error.length === 0; else onError" class="flex">
-          <img class="max-w-xl min-h-[25rem] max-h-[40rem]" [src]="data?.imageUrl" alt="Image..">
+          <img class="max-w-xl min-h-[25rem] max-h-[40rem]" [src]="data.imageUrl" alt="Image..">
           <div class="w-[.1rem] min-h-full bg-lime-50"></div>
           <ul class="flex flex-col">
             <li
@@ -43,8 +41,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 })
 export class DominantColorsComponent implements OnInit, OnDestroy {
 
-  private readonly colorChannelNames = ['Blue', 'Green', 'Red'];
-
   dominantColorsService = inject(DominantColorsService)
   data = inject(MAT_DIALOG_DATA)
 
@@ -56,17 +52,11 @@ export class DominantColorsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(){
-    this.dominantColorsService.fetchDominantColors(this.data.imageUrl, this.data.option).pipe(
-        takeUntil(this.destroyed$),
-        finalize( () => this.loading = false)
-      )
-      .subscribe({
-        next: (data) =>  {
-          this.error = ''
-          this.dominantColors = data
-        },
-        error: (error) => this.error = UNKNOWN_ERROR
-      })
+    const numberOfColors = this.data.numOfColors
+    setTimeout(() => {
+        this.loading = false
+        this.dominantColors = this.dominantColorsService.loadDominantColors(this.data.dominantColors).slice(0, numberOfColors)
+    }, 400)
   }
 
   ngOnDestroy() {

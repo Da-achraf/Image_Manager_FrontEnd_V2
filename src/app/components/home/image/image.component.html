@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="flex flex-col gap-4">
-      <button (click)="showHistogram(image.url)" class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Histogram</button>
+      <button (click)="showHistogram(image.histogram)" class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Histogram</button>
       <button (click)="showMoment(image.url)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Moments</button>
       <button
         mat-button
@@ -64,7 +64,7 @@
 
 
     <mat-menu #menu="matMenu">
-      <button (click)="showDominantColors(image.url, option)" *ngFor="let option of options" mat-menu-item>
+      <button (click)=" showDominantColors(image.dominantColors, image?.url, option)" *ngFor="let option of options" mat-menu-item>
         {{option}}
       </button>
     </mat-menu>

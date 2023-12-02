@@ -41,16 +41,15 @@ export class ImagesComponent implements OnInit, OnDestroy {
   }
 
   openUploadImageDialog(){
-    const dialogRef = this.dialog.open(UploadImageDialogCompoenent);
-
-    dialogRef.afterClosed().subscribe((data: any) => {
-      if (data)
-        this.uploadImages(data)
-    });
+    this.dialog.open(UploadImageDialogCompoenent).afterClosed()
+      .subscribe((files: File[]) => {
+        this.uploadImages(files)
+      });
   }
 
   uploadImages(files: File[]){
-    this.imageService.uploadImages(files, this.themeId)
+    if (files.length != 0)
+      this.imageService.uploadImages(files, this.themeId)
   }
 
   openDeleteImageDialog(){

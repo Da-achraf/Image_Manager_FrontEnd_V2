@@ -8,7 +8,7 @@ export class DndDirective {
 
   @HostBinding('class.animate-shake') fileOver!: boolean
 
-  @Output() filesDropped = new EventEmitter<any>
+  @Output() filesDropped = new EventEmitter<File[]>
 
   @HostListener('dragover', ['$event']) onDragOver(event: any){
     event.preventDefault()
@@ -20,7 +20,7 @@ export class DndDirective {
     event.preventDefault()
     event.stopPropagation()
     this.fileOver = false
-    const files = event.dataTransfer.files
+    const files = event.dataTransfer.files as File[]
     if (files.length > 0){
       this.filesDropped.emit(files)
     }

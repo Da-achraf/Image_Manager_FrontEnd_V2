@@ -2,7 +2,7 @@ import {inject, Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "./auth.service";
 import {API_URL_TOKEN} from "../config/api.config";
-import {map, of, switchMap, tap} from "rxjs";
+import {filter, map, of, switchMap, tap} from "rxjs";
 import { Response } from "../models/response.model";
 import {Theme} from "../models/theme.model";
 import {ThemeStateManager} from "./theme-state-manager";
@@ -18,6 +18,9 @@ export class ThemeService {
   api_url = inject(API_URL_TOKEN)
   local_url = `${this.api_url}/auth/theme`
 
+  constructor() {
+    this.loadThemesForUser().subscribe()
+  }
 
   loadThemesForUser(){
     const userId = this.authService.getDecodedToken()?.userId
@@ -36,13 +39,23 @@ export class ThemeService {
     )
   }
 
-  saveTheme(theme: Theme){
-    return this.http.post<Response>(this.local_url, theme).pipe(
-      tap((resp: Response) => this.themeState.addNewTheme(resp.data))
+  saveTheme(label: string){
+    return of(label).pipe(
+      filter((label: string) => label?.length > 2),
+      map((label: string) => {
+        const UserId = this.authService.getDecodedToken()?.userId
+        return new Theme({ label: label, UserId })
+      }),
+      switchMap((theme: Theme) => {
+        return this.http.post<Response>(this.local_url, theme).pipe(
+          tap((resp: Response) => this.themeState.addNewTheme(resp.data))
+        )
+      })
     )
   }
 
   deleteThemes(themesIds: string[]){
+    this.themeState.unSelectAllThemes()
 	  return this.http.delete<Response>(`${this.local_url}`, {body: themesIds}).pipe(
 	    tap((resp: Response) => this.themeState.removeThemes(resp.data))
     )

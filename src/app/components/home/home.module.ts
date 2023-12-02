@@ -18,6 +18,8 @@ import { ImageComponent } from './image/image.component';
 import {MatListModule} from "@angular/material/list";
 import {SizePipe} from "../../pipes/size.pipe";
 import {MatMenuModule} from "@angular/material/menu";
+import {CreateThemeComponent} from "./themes/create-theme.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
 	declarations: [
@@ -27,22 +29,24 @@ import {MatMenuModule} from "@angular/material/menu";
     ImagesComponent,
     ImageComponent,
 	],
-	imports: [
-		CommonModule,
-		HomeRoutingModule,
-		FontAwesomeModule,
-		MatCheckboxModule,
-		NgOptimizedImage,
-		MatButtonModule,
-		MatInputModule,
-		FormsModule,
-		MatDialogModule,
-		MatSnackBarModule,
-		IsCheckedPipe,
-		ImageUploaderComponent,
-		MatListModule,
-		SizePipe,
-		MatMenuModule
-	],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    FontAwesomeModule,
+    MatCheckboxModule,
+    NgOptimizedImage,
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    IsCheckedPipe,
+    ImageUploaderComponent,
+    MatListModule,
+    SizePipe,
+    MatMenuModule,
+    CreateThemeComponent,
+    MatProgressSpinnerModule
+  ],
 })
 export class HomeModule { }

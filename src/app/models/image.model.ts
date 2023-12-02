@@ -1,14 +1,16 @@
 export class Image {
 	id: string
 	name?: string
-  publicId?: string
+  	publicId?: string
 	url?: string
 	mimeType?: string
 	size?: number
 	width?: number
 	height?: number
+	histogram: string
+	dominantColors: string
 	ThemeId?: string
-  createdAt?: string
+  	createdAt?: string
 
 	constructor(obj: any) {
 		this.id = obj?.id || null
@@ -19,6 +21,8 @@ export class Image {
 		this.size = obj?.size || null
 		this.width = obj?.width || null
 		this.height = obj?.height || null
+		this.histogram = obj?.histogram || null
+		this.dominantColors = obj?.dominantColors || null
 		this.ThemeId = obj?.ThemeId || null
 		this.createdAt = obj?.createdAt || null
 	}

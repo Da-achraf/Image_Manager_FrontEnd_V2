@@ -5,8 +5,12 @@
     themes: themes$ | async
   } as all"
 >
-  <div class="flex justify-between mb-[1rem] gap-2">
+  <mat-spinner *ngIf="!all.themes"></mat-spinner>
+  <div *ngIf="all.themes?.length === 0" class="mx-auto mt-[5rem] max-w-xl">
+    <app-create-theme (labelChange)="saveTheme($event)"></app-create-theme>
+  </div>
 
+  <div *ngIf="all.themes?.length != 0" class="flex justify-between mb-[1rem] gap-2">
     <mat-checkbox
         class="justify-self-start text-sm font-semibold"
         [checked]="all.themes?.length != 0 && (all.themes?.length === all.selectedThemesIds?.length)"
@@ -33,7 +37,6 @@
       <fa-icon class="ml-1" [icon]="faPlus"></fa-icon>
     </button>
   </div>
-
   <div class="flex flex-wrap gap-4">
     <div
       *ngFor="let theme of all.themes"
@@ -50,7 +53,7 @@
           [checked]="all.selectedThemesIds | isChecked : theme.id"
           [value]="theme.id"
           [color]="'primary'"
-          (change)="$event.checked ? onThemeChecked(theme.id) : onThemeUnChecked(theme.id)"
+          (change)="$event.checked ? themeState.emitSelectedTheme(theme.id) : themeState.emitUnSelectedTheme(theme.id)"
           name="themeCheckBox">
         </mat-checkbox>
       </div>

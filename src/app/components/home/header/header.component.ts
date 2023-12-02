@@ -13,9 +13,12 @@ import {AuthService} from "../../../services/auth.service";
       </a>
       <span
         class="relative bg-gray-500 w-[2.5rem] h-[2.5rem] rounded-full hover:cursor-pointer"
-        (click)="logout()"
+        (click)="showDropDown = !showDropDown"
       ></span>
-<!--      class="relative bg-gray-500 w-[2.5rem] h-[2.5rem] rounded-full hover:cursor-pointer after:hidden after:absolute after:content-['Logout'] after:top-[-50%] after:translate-y-[50%] after:left-[-100%] after:px-[1rem] after:py-[.3rem] after:bg-light after:text-gray-950 hover:after:block"-->
+      <div *ngIf="showDropDown" class="absolute flex flex-col right-[10%] top-[10%] bg-gray-200 rounded shadow-2xl">
+        <span class="p-3 hover:bg-gray-300 hover:cursor-pointer selection:bg-transparent">Settings</span>
+        <span (click)="logout()" class="p-3 hover:bg-gray-300 hover:cursor-pointer selection:bg-transparent">Logout</span>
+      </div>
     </div>
 
   `,
@@ -25,7 +28,10 @@ export class HeaderComponent {
 
   authService = inject(AuthService)
 
+  showDropDown = false
+
   async logout() {
+    this.showDropDown = !this.showDropDown
     await this.authService.logout()
   }
 

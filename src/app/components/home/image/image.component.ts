@@ -15,7 +15,7 @@ export class ImageComponent implements OnInit {
   router = inject(Router)
   image = history.state as Image
 
-  options = [3, 5, 7]
+  options = [3, 5, 7, 10]
 
   dialog = inject(MatDialog)
 
@@ -23,11 +23,12 @@ export class ImageComponent implements OnInit {
     console.log(this.image)
   }
 
-	showHistogram(imageUrl: any){
-    const dialogRef = this.dialog.open(HistogramComponent, {
-      data: imageUrl
+  showHistogram(histogram: string){
+    this.dialog.open(HistogramComponent, {
+      data: histogram
     });
   }
+
 
   showMoment(imageUrl: any){
     this.dialog.open(MomentComponent, {
@@ -35,10 +36,9 @@ export class ImageComponent implements OnInit {
     });
   }
 
-  // Take An Image Url And The Number Of Desired Dominant Colors
-  showDominantColors(imageUrl: any, option: any){
+  showDominantColors(dominantColors: string, imageUrl: string|undefined, numOfColors: number){
     this.dialog.open(DominantColorsComponent, {
-      data: { imageUrl, option}
+        data: {dominantColors, imageUrl, numOfColors},
     });
   }
 

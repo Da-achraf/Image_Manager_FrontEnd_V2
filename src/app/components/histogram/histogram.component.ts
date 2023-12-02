@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, inject, OnDestroy} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {HistogramService} from "../../services/histogram.service";
-import {UNKNOWN_ERROR} from "../../constants/error.constant";
 import {NgIf} from "@angular/common";
-import {finalize, Subject, takeUntil} from 'rxjs';
+import {Subject} from 'rxjs';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @Component({
   selector: 'app-histogram',
@@ -48,20 +47,28 @@ export class HistogramComponent implements AfterViewInit, OnDestroy {
   }
 
 
+  // loadChart() {
+  //   const imageUrl = this.data
+  //   this.histogramService.loadHistogram(imageUrl)
+  //   .pipe(
+  //     takeUntil(this.destroyed$),
+  //     finalize( () => this.loading = false)
+  //   )
+  //   .subscribe({
+  //     next: (data) =>  {
+  //       this.error = ''
+  //       this.histogramService.getChart(data)
+  //     },
+  //     error: (error) => this.error = UNKNOWN_ERROR
+  //   })
+  // }
+
   loadChart() {
-    const imageUrl = this.data
-    this.histogramService.loadHistogram(imageUrl)
-    .pipe(
-      takeUntil(this.destroyed$),
-      finalize( () => this.loading = false)
-    )
-    .subscribe({
-      next: (data) =>  {
-        this.error = ''
-        this.histogramService.getChart(data)
-      },
-      error: (error) => this.error = UNKNOWN_ERROR
-    })
+    const data = this.histogramService.loadHistogram(this.data)
+    setTimeout(() => {
+      this.loading = false
+      this.histogramService.getChart(data)
+    }, 300)
   }
 
   ngOnDestroy() {
