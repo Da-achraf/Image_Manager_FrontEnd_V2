@@ -13,6 +13,8 @@ import {AuthorizationTokenInterceptor} from "./interceptors/authorization-token.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 import {ImageIUploadingComponent} from "./components/home/images/image-uploading-template.component";
+import {BreadcrumbModule} from "xng-breadcrumb";
+import {HomeModule} from "./components/home/home.module";
 
 @NgModule({
 	declarations: [
@@ -26,11 +28,13 @@ import {ImageIUploadingComponent} from "./components/home/images/image-uploading
 		HttpClientModule,
 		ImageCropperModule,
 		FormsModule,
+    HomeModule,
 		ReactiveFormsModule,
 		FontAwesomeModule,
 		BrowserAnimationsModule,
 		MatSnackBarModule,
-		ImageIUploadingComponent
+		ImageIUploadingComponent,
+    BreadcrumbModule
 	],
 	providers: [
 		{provide: ErrorHandler, useClass: CustomErrorHandler},

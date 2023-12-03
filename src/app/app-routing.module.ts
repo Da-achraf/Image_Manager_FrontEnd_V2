@@ -12,7 +12,8 @@ const routes: Routes = [
     path: 'app',
     component: HomeComponent,
     loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule),
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    data: { breadcrumb: {alias: 'themes'} },
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

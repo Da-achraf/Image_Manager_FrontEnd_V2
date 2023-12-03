@@ -9,6 +9,9 @@ export class Image {
 	height?: number
 	histogram: string
 	dominantColors: string
+	moments: string
+	gaborFilterValues: string
+	tamura: string
 	ThemeId?: string
   	createdAt?: string
 
@@ -23,6 +26,9 @@ export class Image {
 		this.height = obj?.height || null
 		this.histogram = obj?.histogram || null
 		this.dominantColors = obj?.dominantColors || null
+		this.moments = obj?.moments || null
+		this.gaborFilterValues = obj?.gaborFilterValues || null
+		this.tamura = obj?.tamura || null
 		this.ThemeId = obj?.ThemeId || null
 		this.createdAt = obj?.createdAt || null
 	}

@@ -25,6 +25,10 @@ export class ThemeStateManager {
       if (this.getAllThemes().length != 0)
         localStorage.setItem('allThemes', JSON.stringify(this.getAllThemes()))
     };
+
+    const chosenTheme = localStorage.getItem('chosenTheme')
+    if (chosenTheme)
+      this.choosenTheme.next(JSON.parse(chosenTheme))
   }
 
   emitLoggedInUser(user: User){
@@ -58,10 +62,13 @@ export class ThemeStateManager {
   }
 
   emitChoosenTheme(themeId: string){
-    const choosenTheme = this.allThemes.value.find((theme: Theme) => theme.id == themeId)
-    console.log(this.allThemes.value)
-    if (choosenTheme)
-     this.choosenTheme.next(choosenTheme)
+    const choosenTheme = this.allThemes.value.find((theme: Theme) => theme.id == themeId) as Theme
+    if (choosenTheme){
+      this.choosenTheme.next(choosenTheme)
+    }else {
+      this.choosenTheme.next(new Theme({}))
+    }
+    localStorage.setItem('chosenTheme', JSON.stringify(this.choosenTheme.value))
   }
 
   getChoosenTheme(){

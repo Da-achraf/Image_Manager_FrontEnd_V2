@@ -9,18 +9,21 @@ import {DeleteDialogComponent} from "../../../shared/components/delete-dialog.co
 import {ThemeStateManager} from "../../../services/theme-state-manager";
 import {SnackBarManager} from "../../../services/snack-bar-manager.service";
 import { CreateThemeDialog } from './create-theme-dialog.component';
+import {Theme} from "../../../models/theme.model";
 
 @Component({
   selector: 'app-themes',
   templateUrl: './themes.component.html',
   styleUrls: ['./themes.component.css']
 })
-export class ThemesComponent implements OnDestroy{
+export class ThemesComponent implements OnInit, OnDestroy{
 
   themeService = inject(ThemeService)
   themeState = inject(ThemeStateManager)
   dialog = inject(MatDialog)
   snackBarManager = inject(SnackBarManager)
+
+  loading: boolean = true
 
   themes$ = this.themeState.allThemes$
   selectedThemesIds$ = this.themeState.selectedThemesIds$
@@ -28,6 +31,13 @@ export class ThemesComponent implements OnDestroy{
 
   protected readonly faTrash = faTrash
   protected readonly faPlus = faPlus
+
+  ngOnInit() {
+    this.themeState.emitChoosenTheme('')
+      setTimeout(() => {
+        this.loading = false
+      }, 500)
+  }
 
   onSelectAllChange(event: any){
     event.checked

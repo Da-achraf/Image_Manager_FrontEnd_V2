@@ -2,9 +2,11 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Image} from "../../../models/image.model";
 import {MatDialog} from "@angular/material/dialog";
-import {HistogramComponent} from "../../histogram/histogram.component";
-import {MomentComponent} from "../../moment/moment.component";
-import {DominantColorsComponent} from "../../dominant-colors/dominant-colors.component";
+import {HistogramDialogComponent} from "../../histogram/histogram-dialog.component";
+import {DominantColorsDialogComponent} from "../../dominant-colors/dominant-colors-dialog.component";
+import {MomentsDialogComponent} from "../../moment/moments-dialog.component";
+import {GaborFilterDialogComponent} from "../../gaborFilter/gabor-filter-dialog.component";
+import {TamuraDialogComponent} from "../../tamura/tamura-dialog.component";
 
 @Component({
   selector: 'app-image',
@@ -12,33 +14,44 @@ import {DominantColorsComponent} from "../../dominant-colors/dominant-colors.com
   styleUrls: ['./image.component.css']
 })
 export class ImageComponent implements OnInit {
+
   router = inject(Router)
-  image = history.state as Image
-
-  options = [3, 5, 7, 10]
-
   dialog = inject(MatDialog)
 
+  image = history.state as Image
+
   ngOnInit() {
+    console.log('Image Init.')
     console.log(this.image)
   }
 
   showHistogram(histogram: string){
-    this.dialog.open(HistogramComponent, {
+    this.dialog.open(HistogramDialogComponent, {
       data: histogram
     });
   }
 
-
-  showMoment(imageUrl: any){
-    this.dialog.open(MomentComponent, {
-      data: imageUrl
+  showMoment(moment: string){
+    this.dialog.open(MomentsDialogComponent, {
+      data: moment
     });
   }
 
-  showDominantColors(dominantColors: string, imageUrl: string|undefined, numOfColors: number){
-    this.dialog.open(DominantColorsComponent, {
-        data: {dominantColors, imageUrl, numOfColors},
+  showDominantColors(image: Image){
+    this.dialog.open(DominantColorsDialogComponent, {
+        data: image
+    });
+  }
+
+  showGaborFilterValues(values: string){
+    this.dialog.open(GaborFilterDialogComponent, {
+      data: values
+    });
+  }
+
+  showTamura(values: string){
+    this.dialog.open(TamuraDialogComponent, {
+      data: values
     });
   }
 

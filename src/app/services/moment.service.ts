@@ -16,4 +16,8 @@ export class MomentService {
       map((data: any) => data?.moments)
     )
   }
+
+  loadMoments(moments: any){
+    return moments
+  }
 }

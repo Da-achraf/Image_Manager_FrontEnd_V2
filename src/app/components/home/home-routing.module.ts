@@ -8,18 +8,19 @@ import {ImageComponent} from "./image/image.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'themes', pathMatch: 'full' },
+  { path: 'themes', component: ThemesComponent, data: { breadcrumb: {alias: 'null2'} }, },
   {
     path: 'themes/:id',
     component: ImagesComponent,
     canActivate: [imagesGuard],
+    data: { breadcrumb: {alias: 'theme'} },
   },
   {
     path: 'image/:id',
     component: ImageComponent,
     canActivate: [imageGuard],
-  },
-  { path: 'themes', component: ThemesComponent },
-
+    data: { breadcrumb: {alias: 'null1'} },
+  }
 ]
 
 @NgModule({

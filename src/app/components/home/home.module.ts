@@ -20,6 +20,7 @@ import {SizePipe} from "../../pipes/size.pipe";
 import {MatMenuModule} from "@angular/material/menu";
 import {CreateThemeComponent} from "./themes/create-theme.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {BreadcrumbModule} from "xng-breadcrumb";
 
 @NgModule({
 	declarations: [
@@ -46,7 +47,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     SizePipe,
     MatMenuModule,
     CreateThemeComponent,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbModule
   ],
 })
 export class HomeModule { }

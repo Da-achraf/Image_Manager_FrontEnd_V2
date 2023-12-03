@@ -1,4 +1,11 @@
 <app-header></app-header>
 <div class="mx-[2rem] lg:mx-[10rem]">
+  <div class="sticky top-[5.5rem] max-w-fit mb-5 transition-all duration-1000 px-4 py-2 bg-gray-50 rounded-lg border-[.1px] border-gray-300">
+    <xng-breadcrumb [separator]="separator" [class]="'font-[450] text-gray-500 transition-all duration-1000'" itemscope></xng-breadcrumb>
+  </div>
   <router-outlet></router-outlet>
 </div>
+
+<ng-template #separator>
+  <fa-icon [icon]="faChevronRight"></fa-icon>
+</ng-template>

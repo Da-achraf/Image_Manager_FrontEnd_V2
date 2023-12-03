@@ -54,20 +54,18 @@
     </div>
     <div class="flex flex-col gap-4">
       <button (click)="showHistogram(image.histogram)" class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Histogram</button>
-      <button (click)="showMoment(image.url)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Moments</button>
-      <button
-        mat-button
-        [matMenuTriggerFor]="menu"
-        class="px-[1rem] py-[.5rem] bg-transparent rounded hover:bg-gray-300">Dominant Colors
-      </button>
+      <button (click)="showMoment(image.moments)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Moments</button>
+      <button (click)="showGaborFilterValues(image.gaborFilterValues)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Gabor Filter</button>
+      <button (click)="showTamura(image.tamura)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Tamura</button>
+      <button (click)="showDominantColors(image)" class="px-[1rem] py-[.5rem] bg-transparent text-center rounded hover:bg-gray-300">Dominant Colors</button>
     </div>
 
 
-    <mat-menu #menu="matMenu">
-      <button (click)=" showDominantColors(image.dominantColors, image?.url, option)" *ngFor="let option of options" mat-menu-item>
-        {{option}}
-      </button>
-    </mat-menu>
+<!--    <mat-menu #menu="matMenu">-->
+<!--      <button (click)="showDominantColors(image)" *ngFor="let option of options" mat-menu-item>-->
+<!--        {{option}}-->
+<!--      </button>-->
+<!--    </mat-menu>-->
 
   </div>
   <div class="grid place-content-center squares sm:w-3/5">
