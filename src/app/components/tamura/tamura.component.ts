@@ -9,11 +9,14 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   standalone: true,
   template: `
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg selection:bg-cyan-500 selection:text-gray-50">
+      <div class="bg-gradient-to-r from-sky-500 to-indigo-500 text-white">
+        <h1 class="max-w-fit mx-auto p-3 font-bold">Tamura</h1>
+      </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase">
         <tr>
           <th scope="col" class="px-6 py-3 bg-gray-50">
-            Characteristics
+            Characteristic
           </th>
           <th scope="col" class="px-6 py-3">
             Value
@@ -26,7 +29,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Coarseness
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Coarseness }}
+              {{ tamura.coarseness }}
             </td>
           </tr>
           <tr class="border-b border-gray-200 hover:bg-gray-50">
@@ -34,7 +37,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Contrast
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Contrast }}
+              {{ tamura.contrast }}
             </td>
           </tr>
           <tr class="border-b border-gray-200 hover:bg-gray-50">
@@ -42,7 +45,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Directionality
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Directionality }}
+              {{ tamura.directionality }}
             </td>
           </tr>
           <tr class="border-b border-gray-200 hover:bg-gray-50">
@@ -50,7 +53,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Line-likeness
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Line_likeness }}
+              {{ tamura.linelikeness }}
             </td>
           </tr>
           <tr class="border-b border-gray-200 hover:bg-gray-50">
@@ -58,7 +61,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Regularity
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Regularity }}
+              {{ tamura.regularity }}
             </td>
           </tr>
           <tr class="border-b border-gray-200 hover:bg-gray-50">
@@ -66,7 +69,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
               Roughness
             </th>
             <td class="px-6 py-4">
-              {{ tamura.Roughness }}
+              {{ tamura.roughness }}
             </td>
           </tr>
         </tbody>

@@ -8,7 +8,7 @@ import {UNKNOWN_ERROR} from "../../constants/error.constant";
   selector: 'app-histogram',
   standalone: true,
   template: `
-      <div *ngIf="error.length == 0; else onError" class="min-w-[50rem] animate-fadeIn">
+      <div *ngIf="error.length == 0; else onError" class="min-w-[70rem] animate-fadeIn">
       </div>
       <div id="container"></div>
 
@@ -26,12 +26,11 @@ import {UNKNOWN_ERROR} from "../../constants/error.constant";
 export class HistogramComponent implements AfterViewInit, OnDestroy {
 
   histogramService = inject(HistogramService)
-  destroyed$ = new Subject<void>()
-
   @Input() histogramData: any
 
   error = ''
   ngAfterViewInit() {
+    console.log('this.histogramData: ', this.histogramData)
     this.loadChart();
   }
 
@@ -45,8 +44,6 @@ export class HistogramComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.destroyed$.next()
-  }
+  ngOnDestroy() {}
 
 }

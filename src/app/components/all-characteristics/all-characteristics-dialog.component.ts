@@ -12,34 +12,23 @@ import {GaborFilterComponent} from "../gaborFilter/gabor-filter.component";
   selector: 'app-all-characteristics-dialog',
   standalone: true,
   template: `
-    <div class="overflow-y-scroll py-4 max-h-[40rem]">
+    <div class="overflow-y-auto p-4 max-h-[40rem]">
       <mat-spinner *ngIf="loading" [color]="'primary'" diameter="40"></mat-spinner>
       <div *ngIf="!loading" class="flex flex-col gap-10">
-        <app-histogram [histogramData]="data.histogram"></app-histogram>
-        <div>
-          <div class="bg-gray-200">
-            <h1 class="max-w-fit mx-auto pt-2 pb-4 bg-gray-200 font-black text-gray-600">Dominant Colors</h1>
-          </div>
+        <div *ngIf="data?.histogram" class="shadow-xl">
+            <app-histogram [histogramData]="data?.histogram"></app-histogram>
+        </div>
+        <div *ngIf="data" class="shadow-xl">
           <app-dominant-colors [data]="data"></app-dominant-colors>
         </div>
-        <div>
-          <div class="bg-gray-200">
-            <h1 class="max-w-fit mx-auto pt-2 pb-4 bg-gray-200 font-black text-gray-600">Color Moments</h1>
-          </div>
-          <app-moments [moments]="data.moments"></app-moments>
+        <div *ngIf="data?.moments" class="shadow-xl">
+          <app-moments [moments]="data?.moments"></app-moments>
         </div>
-        <div>
-          <div class="bg-gray-200">
-            <h1 class="max-w-fit mx-auto pt-2 pb-4 bg-gray-200 font-black text-gray-600">Gabor Filter Values</h1>
-          </div>
+        <div *ngIf="data?.gaborFilterValues" class="shadow-xl">
           <app-gabor-filter [gaborValues]="data.gaborFilterValues"></app-gabor-filter>
         </div>
-        <div>
-          <div class="bg-gray-200">
-            <h1 class="max-w-fit mx-auto pt-2 pb-4 bg-gray-200 font-black text-gray-600">Tamura</h1>
-          </div>
+        <div *ngIf="data?.tamura" class="shadow-xl">
           <app-tamura [tamura]="data.tamura"></app-tamura>
-        </div>
       </div>
     </div>
   `,

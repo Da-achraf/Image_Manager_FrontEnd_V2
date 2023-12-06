@@ -23,7 +23,7 @@
 }
 
 .button {
-  @apply px-[.8rem] py-[.5rem] font-semibold rounded-lg hover:cursor-pointer
+  @apply px-[.8rem] py-[.5rem] font-semibold text-[.9rem] rounded-lg hover:cursor-pointer
 }
 
 html, body {

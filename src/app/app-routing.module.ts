@@ -6,6 +6,7 @@ import {authGuard} from "./guards/auth.guard";
 import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
@@ -15,7 +16,6 @@ const routes: Routes = [
     canActivate: [authGuard],
     data: { breadcrumb: {alias: 'themes'} },
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 
 ];

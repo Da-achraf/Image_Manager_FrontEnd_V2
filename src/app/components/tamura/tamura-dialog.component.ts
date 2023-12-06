@@ -10,9 +10,6 @@ import {TamuraComponent} from "./tamura.component";
     <div class="grid place-content-center">
       <mat-spinner *ngIf="loading" [color]="'primary'" diameter="40"></mat-spinner>
       <div *ngIf="!loading">
-        <div class="bg-gray-200">
-          <h1 class="max-w-fit mx-auto pt-2 pb-4 bg-gray-200 font-black text-gray-600">Tamura Characteristics</h1>
-        </div>
         <app-tamura [tamura]="data"></app-tamura>
       </div>
     </div>

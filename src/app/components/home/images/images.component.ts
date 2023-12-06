@@ -1,5 +1,12 @@
 import {Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {faChartSimple, faCloud, faHandshakeSimple, faPlus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartSimple,
+  faChevronRight,
+  faCloud,
+  faHandshakeSimple,
+  faPlus,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
 import {ActivatedRoute, Router} from "@angular/router";
 import {filter, map, switchMap, tap} from "rxjs";
 import {ImageService} from "../../../services/image.service";
@@ -26,7 +33,6 @@ export class ImagesComponent implements OnInit, OnDestroy {
   imageService = inject(ImageService)
   router = inject(Router)
   imageState = inject(ImageStateManager)
-  themeState = inject(ThemeStateManager)
   dialog = inject(MatDialog)
 
   images$ = this.imageState.allImages$
@@ -53,19 +59,23 @@ export class ImagesComponent implements OnInit, OnDestroy {
       });
   }
 
+  /**
+   * @TODO to implement
+   */
+  toggleSelect(imageId: string){
+
+  }
+
   openCharacteristicsDialog(){
     const selectedImageId = this.imageState.getSelectedImages()[0]
     const selectedImage = this.imageState.getAllImages().find((image: Image) => image.id === selectedImageId)
     this.dialog.open(AllCharacteristicsDialogComponent, {
       data: selectedImage
-    })
+    }).afterClosed().subscribe(_ => this.imageState.unSelectAllImages())
   }
 
-  /**
-   * @TODO to implement
-   */
-  openFindSimilarDialog(){
-
+  onFindSimilar(){
+    this.imageService.findSimilar()
   }
 
   uploadImages(files: File[]){
@@ -74,9 +84,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
   }
 
   openDeleteImageDialog(){
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
-
-    dialogRef.afterClosed().pipe(
+    this.dialog.open(DeleteDialogComponent).afterClosed().pipe(
         tap(toBeDeleted => {
           if (!toBeDeleted) this.imageState.unSelectAllImages()
         }),
@@ -86,9 +94,9 @@ export class ImagesComponent implements OnInit, OnDestroy {
       })
   }
 
-  async navigateToChoosenImage(image: Image) {
+  async navigateToChosenImage(image: Image) {
     try {
-      console.log('Navigating to chosen image: ', image)
+      this.imageState.unSelectAllImages()
       const url = `/app/image/${image.id}`
       await this.router.navigateByUrl(url, { state: image })
     }catch (e){
@@ -103,5 +111,6 @@ export class ImagesComponent implements OnInit, OnDestroy {
   protected readonly faCloud = faCloud;
   protected readonly faChartSimple = faChartSimple;
   protected readonly faHandshakeSimple = faHandshakeSimple;
+  protected readonly faChevronRight = faChevronRight;
 }
 

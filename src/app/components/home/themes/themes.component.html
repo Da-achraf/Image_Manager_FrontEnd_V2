@@ -18,17 +18,21 @@
 
   <ng-container *ngIf="all.themes?.length != 0 && !loading">
     <div class="flex justify-between mb-[1rem] gap-2">
-      <mat-checkbox
-        class="justify-self-start text-sm font-semibold"
-        [checked]="all.themes?.length != 0 && (all.themes?.length === all.selectedThemesIds?.length)"
-        [color]="'primary'"
-        (change)="onSelectAllChange($event)"
-        name="themeCheckBox"
-      >
-        Select All
-      </mat-checkbox>
+      <div class="flex items-center gap-2">
+        <mat-checkbox
+          class="justify-self-start text-sm font-semibold"
+          [checked]="all.themes?.length != 0 && (all.themes?.length === all.selectedThemesIds?.length)"
+          [color]="'primary'"
+          (change)="onSelectAllChange($event)"
+          name="themeCheckBox"
+        >
+          Select All
+        </mat-checkbox>
+        <span *ngIf="all.selectedThemesIds?.length != 0" class="text-gray-500">{{ all.selectedThemesIds?.length }} selected</span>
+
+      </div>
       <button
-        class="button bg-strongRed text-white hover:bg-lightRed"
+        class="button bg-lightRed text-white hover:bg-strongRed"
         [hidden]="all.selectedThemesIds?.length === 0"
         (click)="openDeleteDialog()"
       >
@@ -51,7 +55,7 @@
       >
         <a
           class="px-[.5rem] py-[.2rem] rounded bg-blue-400 text-gray-50 hover:bg-main"
-          (click)="themeState.emitChoosenTheme(theme.id);"
+          (click)="themeState.emitChoosenTheme(theme.id); this.themeState.unSelectAllThemes();"
           [routerLink]="['/app/themes/', theme.id]"
         >
           {{ theme.label }}

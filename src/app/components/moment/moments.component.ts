@@ -9,6 +9,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   standalone: true,
   template: `
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg selection:bg-cyan-500 selection:text-gray-50">
+      <div class="bg-gradient-to-r from-sky-500 to-indigo-500 text-white">
+        <h1 class="max-w-fit mx-auto p-3 font-bold">Color Moments</h1>
+      </div>
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase">
         <tr>

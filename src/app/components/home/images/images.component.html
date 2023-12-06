@@ -17,24 +17,27 @@
   </ng-container>
 
   <ng-container *ngIf="all.images?.length != 0 && !loading">
-    <div class="flex justify-between mb-[1rem] gap-2">
+    <div class="sticky z-20 top-[5.3rem] flex justify-between items-center bg-[#F9FAFB] mb-[1rem] py-3 gap-2">
       <!-- Select All CheckBox -->
-      <mat-checkbox
-        class="justify-self-start text-sm font-semibold"
-        [checked]="all.images?.length != 0 && (all.images?.length === all.selectedImagesIds?.length)"
-        [color]="'primary'"
-        (change)= "
-                    $event.checked
-                    ? imageState.selectAllImages()
-                    : imageState.unSelectAllImages()
-                  "
-        name="themeCheckBox"
-      >
-        Select All
-      </mat-checkbox>
+      <div class="flex items-center gap-2">
+        <mat-checkbox
+          class="justify-self-start text-sm font-semibold"
+          [checked]="all.images?.length != 0 && (all.images?.length === all.selectedImagesIds?.length)"
+          [color]="'primary'"
+          (change)= "
+                      $event.checked
+                      ? imageState.selectAllImages()
+                      : imageState.unSelectAllImages()
+                    "
+          name="themeCheckBox"
+        >
+          Select All
+        </mat-checkbox>
+        <span *ngIf="all.selectedImagesIds?.length != 0" class="text-gray-500">{{ all.selectedImagesIds?.length }} selected</span>
+      </div>
       <div class="flex items-center gap-4">
         <button
-                class="px-[1rem] py-[.5rem] bg-main font-semibold text-gray-100 rounded-lg hover:cursor-pointer hover:bg-blue-700"
+                class="button bg-main text-gray-100 hover:bg-blue-700"
                 (click)="openCharacteristicsDialog()"
                 [hidden]="all.selectedImagesIds?.length != 1"
         >
@@ -42,8 +45,8 @@
           <fa-icon class="ml-1" [icon]="faChartSimple"></fa-icon>
         </button>
         <button
-                class="px-[1rem] py-[.5rem] bg-amber-400 font-semibold text-gray-600 rounded-lg hover:cursor-pointer hover:bg-amber-500 hover:text-gray-100"
-                (click)="openFindSimilarDialog()"
+                class="button bg-[#07b1bc] text-gray-100 hover:bg-[#01a0b6] hover:text-gray-100"
+                (click)="onFindSimilar()"
                 [hidden]="all.selectedImagesIds?.length != 1"
         >
           Find Similar
@@ -58,7 +61,7 @@
           <fa-icon class="ml-1" [icon]="faTrash"></fa-icon>
         </button>
         <button
-                class="px-[1rem] py-[.5rem] bg-main font-semibold text-gray-100 rounded-lg self-end hover:cursor-pointer hover:bg-blue-700"
+                class="button bg-main text-gray-100 self-end hover:bg-blue-700"
                 (click)="openUploadImageDialog()"
                 [hidden]="all.selectedImagesIds?.length != 0"
         >
@@ -68,14 +71,15 @@
       </div>
     </div>
 
-    <div class="flex flex-wrap gap-4">
+    <div class="flex justify-center flex-wrap gap-4">
       <div
         *ngFor="let image of all.images"
-        class="relative bg-transparent text-lg text-gray-600 font-bold px-[2rem] py-[3rem] rounded-xl shadow-2xl box-border hover:cursor-pointer"
+        class="relative bg-transparent w-[300px] text-lg text-gray-600 font-bold px-[2rem] py-[3rem] rounded-xl shadow-2xl box-border hover:cursor-pointer"
       >
         <img
           class="max-w-[250px] max-h-[250px] w-auto h-auto" alt="image"
-          (click)="navigateToChoosenImage(image)"
+          (click)="toggleSelect(image.id)"
+          (dblclick)="navigateToChosenImage(image)"
           [src]="image.url"
         >
         <div class="absolute top-[.1rem] right-[.1rem]">
@@ -95,3 +99,8 @@
     </div>
   </ng-container>
 </ng-container>
+
+
+<ng-template #separator>
+  <fa-icon [icon]="faChevronRight"></fa-icon>
+</ng-template>

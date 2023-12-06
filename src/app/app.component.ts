@@ -3,8 +3,7 @@ import {ImageCroppedEvent, LoadedImage} from "ngx-image-cropper";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ImageStateManager} from "./services/image-state-manager";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {ImageIUploadingComponent} from "./components/home/images/image-uploading-template.component";
-import {Subject, takeUntil} from "rxjs";
+import {Subject} from "rxjs";
 import {SnackBarManager} from "./services/snack-bar-manager.service";
 @Component({
   selector: 'app-root',

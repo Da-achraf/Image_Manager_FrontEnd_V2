@@ -8,20 +8,23 @@ import {MatButtonModule} from "@angular/material/button";
 import {Image} from "../../models/image.model";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faPalette} from "@fortawesome/free-solid-svg-icons";
+
 @Component({
   selector: 'app-dominant-colors',
   standalone: true,
   template: `
-    <div class="grid place-content-center">
-      <div *ngIf="error.length === 0; else onError" class="flex flex-col gap-4">
+      <div *ngIf="error.length === 0; else onError" class="flex flex-col items-center gap-4">
+        <div class="w-full bg-gradient-to-r from-sky-500 to-indigo-500 text-white sm:rounded-t-lg">
+          <h1 class="max-w-fit mx-auto p-3 font-bold">Dominant Colors</h1>
+        </div>
         <button
-            [matMenuTriggerFor]="menu"
-            class="max-w-fit px-[1rem] mt-3 mx-auto py-[.5rem] bg-main text-base font-semibold text-gray-100 rounded-lg hover:cursor-pointer hover:bg-blue-700"
+          [matMenuTriggerFor]="menu"
+          class="max-w-fit px-[1rem] py-[.5rem] bg-main text-base font-semibold text-gray-100 rounded-lg hover:cursor-pointer hover:bg-blue-700"
         >
-          Number Of Colors
+          Colors
           <fa-icon class="ml-1" [icon]="faPalette"></fa-icon>
         </button>
-        <div class="flex">
+        <div class="flex justify-center">
           <img class="max-w-xl min-h-[25rem] max-h-[40rem]" [src]="data?.url" alt="Image..">
           <div class="w-[.1rem] min-h-full bg-lime-50"></div>
           <ul class="flex flex-col">
@@ -34,7 +37,6 @@ import {faPalette} from "@fortawesome/free-solid-svg-icons";
           </ul>
         </div>
       </div>
-    </div>
     <mat-menu #menu="matMenu">
       <button (click)="changeNumOfColors(option)" *ngFor="let option of options" mat-menu-item>
         {{option}}
@@ -46,7 +48,11 @@ import {faPalette} from "@fortawesome/free-solid-svg-icons";
       </div>
     </ng-template>
   `,
-  styles: [``],
+  styles: [`
+    :host {
+      @apply rounded-lg
+    }
+  `],
   imports: [
     NgIf,
     AsyncPipe,

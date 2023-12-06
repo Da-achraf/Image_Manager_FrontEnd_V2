@@ -10,6 +10,7 @@ import {ThemeStateManager} from "../../../services/theme-state-manager";
 import {SnackBarManager} from "../../../services/snack-bar-manager.service";
 import { CreateThemeDialog } from './create-theme-dialog.component';
 import {Theme} from "../../../models/theme.model";
+import {ImageStateManager} from "../../../services/image-state-manager";
 
 @Component({
   selector: 'app-themes',
@@ -20,6 +21,7 @@ export class ThemesComponent implements OnInit, OnDestroy{
 
   themeService = inject(ThemeService)
   themeState = inject(ThemeStateManager)
+  imageState = inject(ImageStateManager)
   dialog = inject(MatDialog)
   snackBarManager = inject(SnackBarManager)
 
@@ -33,6 +35,7 @@ export class ThemesComponent implements OnInit, OnDestroy{
   protected readonly faPlus = faPlus
 
   ngOnInit() {
+    this.imageState.unSelectAllImages()
     this.themeState.emitChoosenTheme('')
       setTimeout(() => {
         this.loading = false
@@ -47,6 +50,7 @@ export class ThemesComponent implements OnInit, OnDestroy{
 
   openDeleteDialog(){
     this.dialog.open(DeleteDialogComponent).afterClosed().pipe(
+      tap(_ => this.themeState.unSelectAllThemes()),
       filter(toBeDeleted => toBeDeleted),
       switchMap(_ => this.themeService.deleteThemes(this.themeState.getSelectedThemes())),
       takeUntil(this.destroyed$)

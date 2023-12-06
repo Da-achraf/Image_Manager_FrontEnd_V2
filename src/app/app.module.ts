@@ -12,7 +12,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {AuthorizationTokenInterceptor} from "./interceptors/authorization-token.interceptor";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
-import {ImageIUploadingComponent} from "./components/home/images/image-uploading-template.component";
 import {BreadcrumbModule} from "xng-breadcrumb";
 import {HomeModule} from "./components/home/home.module";
 
@@ -33,7 +32,6 @@ import {HomeModule} from "./components/home/home.module";
 		FontAwesomeModule,
 		BrowserAnimationsModule,
 		MatSnackBarModule,
-		ImageIUploadingComponent,
     BreadcrumbModule
 	],
 	providers: [

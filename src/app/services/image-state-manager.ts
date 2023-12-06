@@ -18,10 +18,6 @@ export class ImageStateManager {
     this.allImages.next(images)
   }
 
-  addNewImage(image: Image){
-    this.allImages.next([...this.allImages.value, image])
-  }
-
   /**
    * If One Or Multiple Images Were Deleted
    */
@@ -36,6 +32,11 @@ export class ImageStateManager {
   getAllImages(){
     return this.allImages.value
   }
+
+  getImageById(id: string){
+    return this.allImages.value.find((image: Image) => image.id === id)
+  }
+
   getSelectedImages(){
     return this.selectedImagesIds.value
   }

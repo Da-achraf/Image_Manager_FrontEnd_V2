@@ -6,14 +6,15 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   providedIn: 'root'
 })
 export class SnackBarManager {
+
   snackBar = inject(MatSnackBar)
 
   beginSimpleOperation(message: string, config: any){
     this.snackBar.open(message, '', config)
   }
 
-  beginComplexOperation(component: any) {
-    this.snackBar.openFromComponent(component, { duration: undefined })
+  beginComplexOperation(component: any, message: string) {
+    this.snackBar.openFromComponent(component, { duration: undefined, data: {message} })
   }
 
   finishOperation(message: string, isSuccess: boolean){

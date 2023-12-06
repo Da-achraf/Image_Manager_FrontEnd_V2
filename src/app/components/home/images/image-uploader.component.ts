@@ -44,7 +44,7 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
       </label>
     </div>
 
-    <ng-container *ngIf="files?.length != 0">
+    <div *ngIf="files?.length != 0" class="max-h-[13rem] overflow-y-auto">
       <div class="flex items-center gap-2 mx-[.2rem] px-[.5rem] py-[.7rem] hover:bg-gray-200 hover:shadow" *ngFor="let file of files">
         <span class="flex-1 font-semibold">{{ file.name }}</span>
         <fa-icon
@@ -53,22 +53,22 @@ import {JsonPipe, NgForOf, NgIf} from "@angular/common";
           class="text-gray-500 hover:text-gray-800 hover:cursor-pointer"
         ></fa-icon>
       </div>
-      <div class="flex justify-center items-center gap-3 py-[1rem]">
-        <button
-          class="px-[1rem] py-[.5rem] bg-main font-semibold text-gray-100 rounded-lg hover:cursor-pointer hover:bg-blue-700"
-          (click)="onUpload.emit(files); files = []"
-        >
-          Upload
-          <fa-icon class="ml-1" [icon]="faCloud"></fa-icon>
-        </button>
-        <button
-          class="px-[1rem] py-[.5rem] bg-transparent font-semibold border border-light text-gray-800 rounded-lg hover:cursor-pointer hover:bg-light"
-          (click)="fileUploadInput.value = ''; onUpload.emit([]); files = []"
-        >
-          Cancel
-        </button>
-      </div>
-    </ng-container>
+    </div>
+    <div *ngIf="files.length != 0" class="flex justify-center items-center gap-3 py-[1rem]">
+      <button
+        class="button bg-main text-gray-100 hover:bg-blue-700"
+        (click)="onUpload.emit(files); files = []"
+      >
+        Upload
+        <fa-icon class="ml-1" [icon]="faCloud"></fa-icon>
+      </button>
+      <button
+        class="button bg-transparent border border-light text-gray-800 hover:bg-gray-200"
+        (click)="fileUploadInput.value = ''; onUpload.emit([]); files = []"
+      >
+        Cancel
+      </button>
+    </div>
   `
 })
 export class ImageUploaderComponent {
